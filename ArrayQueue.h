@@ -4,7 +4,7 @@
 #include "Queue.h"
 
 template <class T>
-class ArrayQueue : public Queue <T> {
+class ArrayQueue : public Queue <T> { //: means 'extends'
  public:
   //See Queue.h for documentation of these methods
 

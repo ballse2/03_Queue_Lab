@@ -15,7 +15,8 @@
 // ArrayQueue<T> class.
 template <class T>
 ArrayQueue<T>::ArrayQueue(){
-
+	numItems = 0;
+	backingArray = new T[numItems]; 
 }
 
 template <class T>
@@ -25,17 +26,46 @@ ArrayQueue<T>::~ArrayQueue() {
 
 template <class T>
 void ArrayQueue<T>::add(T toAdd){
+	numItems++;
 
+	//make a new array, put in new item
+	T* myNewArr = new T[numItems];
+	myNewArr[numItems-1] = toAdd;
+
+	//copy over old items
+	for(unsigned int i=0;i<numItems-1;i++){
+		myNewArr[i] = backingArray[i];
+	}
+
+	//This is delete[], not delete, need to delete old backingArray
+	delete[] backingArray;
+
+	//update backingArray to new Arr
+	backingArray = myNewArr;
 }
 
 template <class T>
 T ArrayQueue<T>::remove(){
-  
+	numItems--;
+
+	//make a new array, put in new item
+	T* myNewArr = new T[numItems];
+
+	T retVal = backingArray[0];
+
+	for(unsigned int i=0;i<numItems;i++){
+		myNewArr[i] = backingArray[i+1];
+	}
+
+	delete[] backingArray;
+	backingArray = myNewArr;
+
+	return retVal;
 }
 
 template <class T>
 unsigned long ArrayQueue<T>::getNumItems(){
-
+	return numItems;
 }
 
 template <class T>
